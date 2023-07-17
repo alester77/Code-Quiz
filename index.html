@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/assets/style/style.css" />
-    <title>Code Quiz</title>
-  </head>
-  <body>
-    <header>
-      <h1>Code Quiz</h1>
-      <nav>
-        <button id="view-high-scores">View High Scores</button>
-        <h2 id="timer-count">Timer: </h2>
-      </nav>
-    </header>
-    <main>
-      <h2></h2>
-    </main>
-    <footer>
-
-    </footer>
-    <script src="/assets/js/script.js"></script>
-  </body>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Code Quiz</title>
+  <!-- CSS stylesheets and other meta-information -->
+  <link rel="stylesheet" href="/assets/style/reset.css">
+  <link rel="stylesheet" href="/assets/style/style.css">
+</head>
+<body>
+  <h1>Code Quiz</h1>
+  <div id="quizContainer">
+    <button id="startButton">Start Quiz</button>
+    <div id="questionArea"></div>
+    <ul id="optionsArea"></ul>
+    <div id="timerDisplay"></div>
+    <form id="scoreForm">
+      <label for="initials">Enter your initials:</label>
+      <input type="text" id="initials" required>
+      <button type="submit">Save Score</button>
+    </form>
+  </div>
+  <script src="/assets/js/script.js"></script>
+</body>
 </html>
