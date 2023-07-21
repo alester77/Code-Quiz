@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>Code Quiz</title>
-  <!-- CSS stylesheets and other meta-information -->
-  <link rel="stylesheet" href="/assets/style/reset.css">
-  <link rel="stylesheet" href="/assets/style/style.css">
-</head>
-<body>
-  <h1>Code Quiz</h1>
-  <div id="quizContainer">
-    <button id="startButton">Start Quiz</button>
-    <div id="questionArea"></div>
-    <ul id="optionsArea"></ul>
-    <div id="timerDisplay"></div>
-    <form id="scoreForm">
-      <label for="initials">Enter your initials:</label>
-      <input type="text" id="initials" required>
-      <button type="submit">Save Score</button>
-    </form>
-  </div>
-  <script src="/assets/js/script.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Code Quiz</title>
+    <!-- CSS stylesheets and other meta-information -->
+    <link rel="stylesheet" href="/assets/style/reset.css" />
+    <link rel="stylesheet" href="/assets/style/style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <h1>Code Quiz</h1>
+      <div class="quiz"></div>
+      <h2 id="question">Question goes here</h2>
+      <div id="answer-buttons">
+        <button class="btn">Answer 1</button>
+        <button class="btn">Answer 2</button>
+        <button class="btn">Answer 3</button>
+      </div>
+      <button id="next-btn">Next</button>
+    </div>
+    
+    <script src="./assets/js/script.js"></script>
+  </body>
 </html>

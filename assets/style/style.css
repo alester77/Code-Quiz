@@ -1,9 +1,68 @@
-header {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
 }
 
+body {
+  background: #FF0054;
+}
 
-nav {
-  display: flex;
-  justify-content: space-around;
+.app {
+  background: #8556d7;
+  width: 90%;
+  max-width: 600px;
+  margin: 100px auto 0;
+  border-radius: 10px;
+  padding: 30px;
+}
+
+.app h1 {
+  font-size: 30px;
+  color: white;
+  font-weight: 600;
+  border-bottom: 1px solid #5a189a;
+  padding-bottom: 30px;
+}
+
+.quiz {
+  padding: 20px 0;
+
+}
+
+.quiz h2 {
+  font-size: 20px;
+  color: aqua;
+  font-weight: 500;
+}
+
+.btn {
+  background: white;
+  color: #050203;
+  font-weight: 500;
+  width: 100%;
+  border: 1px solid #8556d7;
+  padding: 10px;
+  margin: 10px 0;
+  text-align: left;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #30ebc6;
+  color: #050203;
+}
+
+#next-btn {
+  background: #30ebc6;
+  font-weight: 500;
+  width: 150px;
+  border: 0;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 20px auto 0;
+  cursor: pointer;
+  display: none;
 }
