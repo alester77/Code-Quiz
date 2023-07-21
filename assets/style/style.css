@@ -50,9 +50,12 @@ body {
   cursor: pointer;
 }
 
-.btn:hover {
+.btn:hover:not([disabled]) {
   background: #30ebc6;
   color: #050203;
+}
+.btn:disabled{
+  cursor: no-drop;
 }
 
 #next-btn {
@@ -65,4 +68,12 @@ body {
   margin: 20px auto 0;
   cursor: pointer;
   display: none;
+}
+
+.correct {
+  background: greenyellow;
+}
+
+.incorrect {
+  background: #f5223b;
 }
