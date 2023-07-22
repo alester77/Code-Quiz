@@ -22,6 +22,19 @@ body {
   border: 1px solid pink;
 }
 
+.high-scores {
+  background: #8556d7;
+  width: 90%;
+  max-width: 600px;
+  margin: 100px auto 0;
+  border-radius: 10px;
+  padding: 20px;
+  text-decoration: none;
+  font-size: 30px;
+  color: white;
+  border: 1px solid pink;
+}
+
 .timer {
   background: #8556d7;
   width: 90%;
@@ -144,4 +157,11 @@ body {
 
 #time-container {
   display: block;
+}
+
+#high-scores-list{
+  font-size: 20px;
+  list-style:decimal;
+  color: #050203;
+  padding: 10px;
 }

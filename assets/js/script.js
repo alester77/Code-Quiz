@@ -48,6 +48,32 @@ var currentQuestionIndex = 0;
 var score = 0;
 var userScores = [];
 
+function displayHighScores() {
+
+  if(document.title === "High Scores") {
+
+  
+  // Retrieve
+  var userScores = JSON.parse(localStorage.getItem("userScores"));
+
+  // Sort
+  userScores.sort((a, b) => b.score - a.score);
+
+  var highScoresList = document.getElementById("high-scores-list");
+
+
+  // Display the high scores
+  userScores.forEach((scoreData) => {
+    var listItem = document.createElement("li");
+    listItem.textContent = `${scoreData.initials} - ${scoreData.score}`;
+    highScoresList.appendChild(listItem);
+  });
+} else {
+  return;
+}}
+
+document.addEventListener("DOMContentLoaded", displayHighScores);
+
 function startQuiz() {
   currentQuestionIndex = 0;
   score = 0;
@@ -153,13 +179,18 @@ function showScore (){
       score: score,
     };
   
-    userScores.push(userScore);
+    var savedUserScores = JSON.parse(localStorage.getItem("userScores"));
+
+    if (savedUserScores && Array.isArray(savedUserScores)) {
+      savedUserScores.push(userScore);
+    } else {
+      savedUserScores = [userScore];
+    }
   
     // Save the userScores array in Local Storage
-    localStorage.setItem("userScores", JSON.stringify(userScores));
+    localStorage.setItem("userScores", JSON.stringify(savedUserScores));
   
-    console.log("User Initials: " + initials);
-    console.log("User Score: " + score);
+    
   
     // Hide the initials input box and button
     initialsInput.style.display = "none";
@@ -167,33 +198,7 @@ function showScore (){
     nextButton.innerText = "Play again?";
     nextButton.style.display = "block";
   
-    // Remove the event listener to avoid duplicate submissions
-    submitInitialsButton.removeEventListener("click", saveUserScore);
   };
-
-
-  function displayHighScores() {
-
-    if(document.title === "High Scores") {
-
-    
-    // Retrieve
-    var userScores = JSON.parse(localStorage.getItem("userScores"));
-  
-    // Sort
-    userScores.sort((a, b) => b.score - a.score);
-  
-    var highScoresList = document.getElementById("high-scores-list");
-  
-    // Display the high scores
-    userScores.forEach((scoreData) => {
-      var listItem = document.createElement("li");
-      listItem.textContent = `${scoreData.initials} - ${scoreData.score}`;
-      highScoresList.appendChild(listItem);
-    });
-  } else {
-    startQuiz();
-  }}
 
 
 function handleNextButton(){
