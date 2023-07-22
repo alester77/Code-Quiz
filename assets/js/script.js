@@ -120,7 +120,6 @@ function resetState() {
 
   while (answerButtons.firstChild) {
     answerButtons.removeChild(answerButtons.firstChild);
-    console.log(answerButtons.firstChild);
   }
 }
 
@@ -148,7 +147,8 @@ function selectAnswer(e) {
 
 function showScore() {
   resetState();
-  timerContainer.style.display = "none";
+  timeLeft = 0; // Reset the time when the quiz starts
+  timerElement.innerText = "Timer: " + timeLeft + "s";
   questionElement.innerText = `Your score: ${score}`;
   questionElement.classList.add("high-score"); //add style
 
@@ -156,10 +156,16 @@ function showScore() {
   initialsInput.style.display = "block";
   initialsTextBox.value = "";
 
-  submitInitialsButton.addEventListener("click", saveUserScore);
-
+  submitInitialsButton.addEventListener("click", function () {
+    saveUserScore();
+    questionElement.classList.remove("high-score");
+    
+    
+  });
+  
   nextButton.innerText = "Play again?";
   nextButton.style.display = "block";
+  
 }
 
 function saveUserScore() {
@@ -205,6 +211,8 @@ function handleNextButton() {
 nextButton.addEventListener("click", () => {
   if (currentQuestionIndex < questions.length) {
     handleNextButton();
+  } else if (initialsTextBox.value.trim() === "") {
+    alert("Please put in initials!");
   } else {
     startQuiz();
   }

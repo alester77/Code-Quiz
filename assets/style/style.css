@@ -72,7 +72,10 @@ body {
   font-size: 20px;
   color: aqua;
   font-weight: 500;
+  padding: 20px;
 }
+
+
 
 .btn {
   background: white;
@@ -155,8 +158,22 @@ body {
   
 }
 
+.time-container {
+  display: block;
+  padding: 20px;
+  margin: 20px;
+  color: white;
+  font-weight: 300;
+  font-size: 20px;
+}
+
 #time-container {
   display: block;
+  padding: 20px;
+  margin: 20px;
+  color: white;
+  font-weight: 300;
+  font-size: 20px;
 }
 
 #high-scores-list{
