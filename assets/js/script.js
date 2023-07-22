@@ -34,7 +34,7 @@ var questionElement = document.getElementById("question");
 var answerButtons = document.getElementById("answer-buttons");
 var nextButton = document.getElementById("next-btn");
 var quizContainer = document.querySelector("#quiz-container");
-var startButton = document.getElementById("start-btn")
+var startButton = document.getElementById("start-btn");
 
 var initialsInput = document.getElementById("initials-input");
 var initialsTextBox = document.getElementById("initials-text");
@@ -42,35 +42,32 @@ var submitInitialsButton = document.getElementById("submit-initials");
 
 var timerElement = document.getElementById("timer");
 var timerContainer = document.getElementById("time-container");
-var timeLeft = 60; 
+var timeLeft = 60;
 
 var currentQuestionIndex = 0;
 var score = 0;
 var userScores = [];
 
 function displayHighScores() {
+  if (document.title === "High Scores") {
+    // Retrieve
+    var userScores = JSON.parse(localStorage.getItem("userScores"));
 
-  if(document.title === "High Scores") {
+    // Sort high scores
+    userScores.sort((a, b) => b.score - a.score);
 
-  
-  // Retrieve
-  var userScores = JSON.parse(localStorage.getItem("userScores"));
+    var highScoresList = document.getElementById("high-scores-list");
 
-  // Sort
-  userScores.sort((a, b) => b.score - a.score);
-
-  var highScoresList = document.getElementById("high-scores-list");
-
-
-  // Display the high scores
-  userScores.forEach((scoreData) => {
-    var listItem = document.createElement("li");
-    listItem.textContent = `${scoreData.initials} - ${scoreData.score}`;
-    highScoresList.appendChild(listItem);
-  });
-} else {
-  return;
-}}
+    // Display the high scores
+    userScores.forEach((scoreData) => {
+      var listItem = document.createElement("li");
+      listItem.textContent = `${scoreData.initials} - ${scoreData.score}`;
+      highScoresList.appendChild(listItem);
+    });
+  } else {
+    return;
+  }
+}
 
 document.addEventListener("DOMContentLoaded", displayHighScores);
 
@@ -84,7 +81,6 @@ function startQuiz() {
   timeLeft = 60; // Reset the time when the quiz starts
   timerElement.innerText = "Timer: " + timeLeft + "s";
   startTimer(); // Start the timer
-  
 }
 
 function startTimer() {
@@ -118,15 +114,16 @@ function showQuestion() {
   });
 }
 
-// remove answer blocks
+// remove previous answer blocks
 function resetState() {
   nextButton.style.display = "none";
-  
+
   while (answerButtons.firstChild) {
     answerButtons.removeChild(answerButtons.firstChild);
     console.log(answerButtons.firstChild);
   }
 }
+
 function selectAnswer(e) {
   var selectedBtn = e.target;
   var isCorrect = selectedBtn.dataset.correct === "true";
@@ -140,17 +137,16 @@ function selectAnswer(e) {
       timeLeft = 0;
     }
   }
-  Array.from(answerButtons.children).forEach(button => {
+  Array.from(answerButtons.children).forEach((button) => {
     if (button.dataset.correct === "true") {
       button.classList.add("correct");
     }
     button.disabled = true; //makes it so you can't click anymore buttons after one is clicked
   });
   nextButton.style.display = "block";
-  
 }
 
-function showScore (){
+function showScore() {
   resetState();
   timerContainer.style.display = "none";
   questionElement.innerText = `Your score: ${score}`;
@@ -162,60 +158,56 @@ function showScore (){
 
   submitInitialsButton.addEventListener("click", saveUserScore);
 
-  nextButton.innerText = "Play again?"
+  nextButton.innerText = "Play again?";
   nextButton.style.display = "block";
 }
 
-  function saveUserScore() {
-    var initials = initialsTextBox.value.trim();
-  
-    if (initials === "") {
-      alert("Please enter your initials.");
-      return;
-    }
-  
-    var userScore = {
-      initials: initials,
-      score: score,
-    };
-  
-    var savedUserScores = JSON.parse(localStorage.getItem("userScores"));
+function saveUserScore() {
+  var initials = initialsTextBox.value.trim();
 
-    if (savedUserScores && Array.isArray(savedUserScores)) {
-      savedUserScores.push(userScore);
-    } else {
-      savedUserScores = [userScore];
-    }
-  
-    // Save the userScores array in Local Storage
-    localStorage.setItem("userScores", JSON.stringify(savedUserScores));
-  
-    
-  
-    // Hide the initials input box and button
-    initialsInput.style.display = "none";
-  
-    nextButton.innerText = "Play again?";
-    nextButton.style.display = "block";
-  
+  if (initials === "") {
+    alert("Please enter your initials.");
+    return;
+  }
+
+  var userScore = {
+    initials: initials,
+    score: score,
   };
 
+  var savedUserScores = JSON.parse(localStorage.getItem("userScores"));
 
-function handleNextButton(){
+  if (savedUserScores && Array.isArray(savedUserScores)) {
+    savedUserScores.push(userScore);
+  } else {
+    savedUserScores = [userScore];
+  }
+
+  // Save the userScores array in Local Storage
+  localStorage.setItem("userScores", JSON.stringify(savedUserScores));
+
+  // Hide the initials input box and button
+  initialsInput.style.display = "none";
+
+  nextButton.innerText = "Play again?";
+  nextButton.style.display = "block";
+}
+
+function handleNextButton() {
   currentQuestionIndex++;
-  if(currentQuestionIndex < questions.length) {
+  if (currentQuestionIndex < questions.length) {
     showQuestion();
   } else {
     showScore();
   }
-};
+}
 
-nextButton.addEventListener("click", ()=> {
-  if(currentQuestionIndex < questions.length) {
+nextButton.addEventListener("click", () => {
+  if (currentQuestionIndex < questions.length) {
     handleNextButton();
   } else {
     startQuiz();
   }
-})
+});
 
 startButton.addEventListener("click", startQuiz);
