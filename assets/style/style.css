@@ -120,6 +120,26 @@ body {
 
 #initials-input {
   display: none;
+  background: #30ebc6;
+  font-weight: 500;
+  border: 0;
+  padding: 30px;
+  border-radius: 5px;
+  margin: 20px auto 0;
+  cursor: pointer;
+  
+}
+
+#submit-initials {
+  background: #1bf43c;
+  font-weight: 500;
+  width: 150px;
+  border: 1px solid #FF0054;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 20px auto 0;
+  cursor: pointer;
+  
 }
 
 #time-container {

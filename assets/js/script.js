@@ -41,7 +41,7 @@ var initialsTextBox = document.getElementById("initials-text");
 var submitInitialsButton = document.getElementById("submit-initials");
 
 var timerElement = document.getElementById("timer");
-var timerContainer = document.getElementById("timer-container");
+var timerContainer = document.getElementById("time-container");
 var timeLeft = 60; 
 
 var currentQuestionIndex = 0;
@@ -95,6 +95,7 @@ function showQuestion() {
 // remove answer blocks
 function resetState() {
   nextButton.style.display = "none";
+  
   while (answerButtons.firstChild) {
     answerButtons.removeChild(answerButtons.firstChild);
     console.log(answerButtons.firstChild);
@@ -125,8 +126,9 @@ function selectAnswer(e) {
 
 function showScore (){
   resetState();
-
+  timerContainer.style.display = "none";
   questionElement.innerText = `Your score: ${score}`;
+  questionElement.classList.add("high-score"); //add style
 
   // display input box and button
   initialsInput.style.display = "block";
@@ -170,6 +172,30 @@ function showScore (){
   };
 
 
+  function displayHighScores() {
+
+    if(document.title === "High Scores") {
+
+    
+    // Retrieve
+    var userScores = JSON.parse(localStorage.getItem("userScores"));
+  
+    // Sort
+    userScores.sort((a, b) => b.score - a.score);
+  
+    var highScoresList = document.getElementById("high-scores-list");
+  
+    // Display the high scores
+    userScores.forEach((scoreData) => {
+      var listItem = document.createElement("li");
+      listItem.textContent = `${scoreData.initials} - ${scoreData.score}`;
+      highScoresList.appendChild(listItem);
+    });
+  } else {
+    startQuiz();
+  }}
+
+
 function handleNextButton(){
   currentQuestionIndex++;
   if(currentQuestionIndex < questions.length) {
@@ -188,5 +214,3 @@ nextButton.addEventListener("click", ()=> {
 })
 
 startButton.addEventListener("click", startQuiz);
-
-
