@@ -33,15 +33,44 @@ var questions = [
 var questionElement = document.getElementById("question");
 var answerButtons = document.getElementById("answer-buttons");
 var nextButton = document.getElementById("next-btn");
+var quizContainer = document.querySelector("#quiz-container");
+var startButton = document.getElementById("start-btn")
+
+var initialsInput = document.getElementById("initials-input");
+var initialsTextBox = document.getElementById("initials-text");
+var submitInitialsButton = document.getElementById("submit-initials");
+
+var timerElement = document.getElementById("timer");
+var timerContainer = document.getElementById("timer-container");
+var timeLeft = 60; 
 
 var currentQuestionIndex = 0;
 var score = 0;
+var userScores = [];
 
 function startQuiz() {
   currentQuestionIndex = 0;
   score = 0;
   nextButton.innerHTML = "Next";
   showQuestion();
+  quizContainer.style.display = "block";
+  startButton.style.display = "none";
+  timeLeft = 60; // Reset the time when the quiz starts
+  timerElement.innerText = "Timer: " + timeLeft + "s";
+  startTimer(); // Start the timer
+  
+}
+
+function startTimer() {
+  var timerInterval = setInterval(function () {
+    timeLeft--;
+    timerElement.innerText = "Timer: " + timeLeft + "s";
+
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      showScore();
+    }
+  }, 1000);
 }
 
 function showQuestion() {
@@ -49,8 +78,6 @@ function showQuestion() {
   var currentQuestion = questions[currentQuestionIndex];
   var questionNo = currentQuestionIndex + 1;
   questionElement.innerHTML = questionNo + ". " + currentQuestion.question;
-
-  // answerButtons.innerHTML = ""; //clear answer buttons before adding new
 
   currentQuestion.answers.forEach((answer) => {
     const button = document.createElement("button");
@@ -81,6 +108,10 @@ function selectAnswer(e) {
     score++;
   } else {
     selectedBtn.classList.add("incorrect");
+    timeLeft -= 20;
+    if (timeLeft < 0) {
+      timeLeft = 0;
+    }
   }
   Array.from(answerButtons.children).forEach(button => {
     if (button.dataset.correct === "true") {
@@ -89,14 +120,55 @@ function selectAnswer(e) {
     button.disabled = true; //makes it so you can't click anymore buttons after one is clicked
   });
   nextButton.style.display = "block";
+  
 }
 
 function showScore (){
   resetState();
+
   questionElement.innerText = `Your score: ${score}`;
+
+  // display input box and button
+  initialsInput.style.display = "block";
+  initialsTextBox.value = "";
+
+  submitInitialsButton.addEventListener("click", saveUserScore);
+
   nextButton.innerText = "Play again?"
   nextButton.style.display = "block";
 }
+
+  function saveUserScore() {
+    var initials = initialsTextBox.value.trim();
+  
+    if (initials === "") {
+      alert("Please enter your initials.");
+      return;
+    }
+  
+    var userScore = {
+      initials: initials,
+      score: score,
+    };
+  
+    userScores.push(userScore);
+  
+    // Save the userScores array in Local Storage
+    localStorage.setItem("userScores", JSON.stringify(userScores));
+  
+    console.log("User Initials: " + initials);
+    console.log("User Score: " + score);
+  
+    // Hide the initials input box and button
+    initialsInput.style.display = "none";
+  
+    nextButton.innerText = "Play again?";
+    nextButton.style.display = "block";
+  
+    // Remove the event listener to avoid duplicate submissions
+    submitInitialsButton.removeEventListener("click", saveUserScore);
+  };
+
 
 function handleNextButton(){
   currentQuestionIndex++;
@@ -115,4 +187,6 @@ nextButton.addEventListener("click", ()=> {
   }
 })
 
-startQuiz();
+startButton.addEventListener("click", startQuiz);
+
+

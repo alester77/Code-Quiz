@@ -11,20 +11,29 @@
     <div class="app">
       <h1>Code Quiz</h1>
       <div>
-        <a class="high-score" href="./assets/highschore.html">View High Scores</a>
-        <h2 class="timer">Timer: </h2>
+        <a class="high-score" href="./assets/highschore.html"
+          >View High Scores</a>
+        <div id="time-container">
+          <h2 class="timer" id="timer">Timer:</h2>
+        </div>
       </div>
-      <div class="quiz"></div>
-      <h2 id="question">Question goes here</h2>
-      <div id="answer-buttons">
-        <button class="btn">Answer 1</button>
-        <button class="btn">Answer 2</button>
-        <button class="btn">Answer 3</button>
-        <button class="btn">Answer 4</button>
+      <button id="start-btn">Start Quiz</button>
+      <div class="quiz-container" id="quiz-container" style="display: none">
+        <h2 id="question">Question goes here</h2>
+        <div id="answer-buttons">
+          <button class="btn">Answer 1</button>
+          <button class="btn">Answer 2</button>
+          <button class="btn">Answer 3</button>
+          <button class="btn">Answer 4</button>
+        </div>
+        <button id="next-btn">Next</button>
+        <div id="initials-input">
+          <input type="text" id="initials-text" placeholder="Enter Initials" />
+          <button id="submit-initials">Submit</button>
+        </div>
       </div>
-      <button id="next-btn">Next</button>
     </div>
-    
+
     <script src="./assets/js/script.js"></script>
   </body>
 </html>

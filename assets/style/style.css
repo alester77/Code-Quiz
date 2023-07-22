@@ -101,3 +101,27 @@ body {
 .incorrect {
   background: #f5223b;
 }
+
+#quiz-container {
+  display: none;
+}
+
+#start-btn{
+  background: #30ebc6;
+  font-weight: 500;
+  width: 150px;
+  border: 0;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 20px auto 0;
+  cursor: pointer;
+  display: block;
+}
+
+#initials-input {
+  display: none;
+}
+
+#time-container {
+  display: block;
+}
