@@ -48,6 +48,7 @@ var currentQuestionIndex = 0;
 var score = 0;
 var userScores = [];
 
+// if the page title is High Scores display the stored scores, otherwise resume
 function displayHighScores() {
   if (document.title === "High Scores") {
     // Retrieve
@@ -71,6 +72,7 @@ function displayHighScores() {
 
 document.addEventListener("DOMContentLoaded", displayHighScores);
 
+// resets timer with the start of the quiz and begins the quiz
 function startQuiz() {
   currentQuestionIndex = 0;
   score = 0;
@@ -95,6 +97,7 @@ function startTimer() {
   }, 1000);
 }
 
+// shows the questions and answers and creates answer buttons
 function showQuestion() {
   resetState();
   var currentQuestion = questions[currentQuestionIndex];
@@ -103,7 +106,6 @@ function showQuestion() {
 
   currentQuestion.answers.forEach((answer) => {
     const button = document.createElement("button");
-    console.log(answer.text);
     button.innerText = answer.text;
     button.classList.add("btn");
     answerButtons.appendChild(button);
@@ -114,7 +116,7 @@ function showQuestion() {
   });
 }
 
-// remove previous answer blocks
+// remove previous answer blocks from html
 function resetState() {
   nextButton.style.display = "none";
 
@@ -122,7 +124,7 @@ function resetState() {
     answerButtons.removeChild(answerButtons.firstChild);
   }
 }
-
+// checks if the answer is right or wrong
 function selectAnswer(e) {
   var selectedBtn = e.target;
   var isCorrect = selectedBtn.dataset.correct === "true";
@@ -145,6 +147,7 @@ function selectAnswer(e) {
   nextButton.style.display = "block";
 }
 
+// once finished, shows initial high score submit area
 function showScore() {
   resetState();
   timeLeft = 0; // Reset the time when the quiz starts
@@ -168,6 +171,7 @@ function showScore() {
   
 }
 
+// add the submitted values to existing array or creates one
 function saveUserScore() {
   var initials = initialsTextBox.value.trim();
 
@@ -184,7 +188,15 @@ function saveUserScore() {
   var savedUserScores = JSON.parse(localStorage.getItem("userScores"));
 
   if (savedUserScores && Array.isArray(savedUserScores)) {
-    savedUserScores.push(userScore);
+    // Check if user's initials already exist in array
+    var existingUser = savedUserScores.find((scoreData) => scoreData.initials === initials);
+    if (existingUser) {
+      // Update the existing score if the user has already submitted a score
+      existingUser.score = score;
+    } else {
+      // If the user is new, add the userScore object to the savedUserScores array
+      savedUserScores.push(userScore);
+    }
   } else {
     savedUserScores = [userScore];
   }
@@ -199,6 +211,7 @@ function saveUserScore() {
   nextButton.style.display = "block";
 }
 
+// multifunctional button
 function handleNextButton() {
   currentQuestionIndex++;
   if (currentQuestionIndex < questions.length) {
@@ -207,7 +220,7 @@ function handleNextButton() {
     showScore();
   }
 }
-
+// makes sure initials are input so submit area will go away
 nextButton.addEventListener("click", () => {
   if (currentQuestionIndex < questions.length) {
     handleNextButton();
@@ -218,4 +231,5 @@ nextButton.addEventListener("click", () => {
   }
 });
 
+// begin the whole thing
 startButton.addEventListener("click", startQuiz);
