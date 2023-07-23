@@ -20,3 +20,7 @@ Thank you to my DU professor, class TAs and helpful classmates for the assistanc
 
 Deployed Link: 
 https://alester77.github.io/Code-Quiz/
+
+![Screenshot Whole](/assets/images/screenshot.png)
+![Screenshot submit](/assets/images/SHsubmit.png)
+![Screenshot of High Scores](/assets/images/highscoreSH.png)
