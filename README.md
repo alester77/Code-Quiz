@@ -7,11 +7,6 @@ I created this code quiz for the DU coding boot camp. This was to educate me mor
 ## Usage
 
 To use this quiz, you'll first open the webpage. You'll click start quiz and will go through the multiple choice questions. When answered wrong, 20 seconds will be subtracted from the time. Once all questions are answered or the time hits zero, the score page will be displayed where you can enter in the initials. Initials must be entered before the submit button or play again button can be entered. Once submitted, you can click the high score button and a page will be displayed with all the stored high scores. 
-
-    
-    ![Screenshot Whole](/assets/images/screenshot.png)
-    ![Screenshot submit](/assets/images/SHsubmit.png)
-    ![Screenshot of High Scores](/assets/images/highscoreSH.png)
     
 
 ## Credits
